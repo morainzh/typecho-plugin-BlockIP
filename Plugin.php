@@ -13,17 +13,17 @@ class BlockIP_Plugin implements Typecho_Plugin_Interface
     public static function activate()
     {
         Typecho_Plugin::factory('Widget_Archive')->beforeRender = array('BlockIP_Plugin', 'BlockIP');
-        return "启用BlockIP成功qwq";
+        return "已启用BlockIP";
     }
 
     public static function deactivate()
     {
-        return "禁用BlockIP成功qwq";
+        return "已禁用BlockIP";
     }
 
     public static function config(Typecho_Widget_Helper_Form $form)
     {
-        $ips = new Typecho_Widget_Helper_Form_Element_Textarea('ips', null, null, _t('IP黑名单列表'), _t('一行一个，支持规则qwq<br>以下是例子qwq<br>192.168.1.1<br>210.10.2.1-20<br>222.34.4.*<br>218.192.104.*'));
+        $ips = new Typecho_Widget_Helper_Form_Element_Textarea('ips', null, null, _t('IP黑名单列表'), _t('填写时一行一个，如下<br>192.168.1.1<br>210.10.2.1-20<br>222.34.4.*<br>218.192.104.*'));
         $form->addInput($ips);
 
     }
@@ -38,7 +38,7 @@ class BlockIP_Plugin implements Typecho_Plugin_Interface
 
         if (BlockIP_Plugin::checkIP()) {
             $user = Typecho_Widget::widget('Widget_User');
-            throw new Typecho_Widget_Exception('抱歉，您的IP段无法访问，如有问题，请<a href="mailto:' . $user->mail . '">联系我</a>。');
+            throw new Typecho_Widget_Exception('抱歉，您的IP段无法访问，如有问题，请<a href="mailto:' . $user->mail . '">联系站长</a>。');
         }
 
     }
